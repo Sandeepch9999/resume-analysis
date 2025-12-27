@@ -20,10 +20,14 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# CORS middleware
+# --- CORS CONFIGURATION (UPDATED) ---
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:5173"],
+    allow_origins=[
+        "http://localhost:3000",
+        "http://localhost:5173",
+        "https://resume-analysis-beta.vercel.app"  # <--- Added your Vercel App
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -43,4 +47,3 @@ def root():
 @app.get("/health")
 def health_check():
     return {"status": "healthy"}
-
