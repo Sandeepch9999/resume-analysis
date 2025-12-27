@@ -30,7 +30,8 @@ export const AuthProvider = ({ children }) => {
 
   const fetchUser = async () => {
     try {
-      const response = await api.get('/api/auth/me')
+      // FIXED: Removed '/api' because api.js already adds it
+      const response = await api.get('/auth/me') 
       setUser(response.data)
     } catch (error) {
       console.error('Failed to fetch user:', error)
@@ -47,7 +48,8 @@ export const AuthProvider = ({ children }) => {
       params.append('username', email)
       params.append('password', password)
 
-      const response = await api.post('/api/auth/login', params.toString(), {
+      // FIXED: Removed '/api' 
+      const response = await api.post('/auth/login', params.toString(), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
@@ -64,14 +66,15 @@ export const AuthProvider = ({ children }) => {
       console.error('Login error:', error)
       // Re-throw with better error message
       const errorMessage = error.response?.data?.detail || 
-                          error.message || 
-                          'Login failed. Please check your credentials and try again.'
+                           error.message || 
+                           'Login failed. Please check your credentials and try again.'
       throw new Error(errorMessage)
     }
   }
 
   const register = async (email, password, fullName) => {
-    const response = await api.post('/api/auth/register', {
+    // FIXED: Removed '/api' 
+    const response = await api.post('/auth/register', {
       email,
       password,
       full_name: fullName,
@@ -95,4 +98,3 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   )
 }
-
