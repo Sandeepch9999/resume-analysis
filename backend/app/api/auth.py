@@ -14,6 +14,15 @@ router = APIRouter(prefix="/api/auth", tags=["auth"])
 @router.post("/register", response_model=UserResponse, status_code=status.HTTP_201_CREATED)
 def register(user_data: UserCreate, db: Session = Depends(get_db)):
     """Register a new user."""
+    
+    # --- FIX: Check password length to prevent Server Crash (500) ---
+    # Bcrypt cannot handle passwords longer than 72 bytes.
+    if len(user_data.password.encode('utf-8')) > 72:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Password is too long. It must be less than 72 characters."
+        )
+    
     # Check if user exists
     existing_user = db.query(User).filter(User.email == user_data.email).first()
     if existing_user:
@@ -22,7 +31,7 @@ def register(user_data: UserCreate, db: Session = Depends(get_db)):
             detail="Email already registered"
         )
     
-    # Create demo user if email is demo@project.com
+    # Create new user
     hashed_password = get_password_hash(user_data.password)
     user = User(
         email=user_data.email,
@@ -72,4 +81,3 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depend
 def get_current_user_info(current_user: User = Depends(get_current_user)):
     """Get current user information."""
     return current_user
-
