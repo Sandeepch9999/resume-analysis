@@ -21,13 +21,10 @@ app = FastAPI(
 )
 
 # --- CORS CONFIGURATION (UPDATED) ---
+# We use ["*"] to allow ALL connections. This fixes the Network Error.
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "http://localhost:5173",
-        "https://resume-analysis-beta.vercel.app"  # <--- Added your Vercel App
-    ],
+    allow_origins=["*"], 
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
