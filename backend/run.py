@@ -1,0 +1,15 @@
+"""
+Backend startup script.
+This script ensures the correct Python path is set before starting the server.
+"""
+import sys
+from pathlib import Path
+
+# Add project root to Python path to access ml module
+project_root = Path(__file__).parent.parent
+sys.path.insert(0, str(project_root))
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+
