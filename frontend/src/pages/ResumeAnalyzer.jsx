@@ -31,7 +31,7 @@ const ResumeAnalyzer = () => {
 
   const fetchJobDescriptions = async () => {
     try {
-      const response = await api.get('/api/job-descriptions/')
+      const response = await api.get('/job-descriptions/')
       setJobDescriptions(response.data)
     } catch (error) {
       console.error('Failed to fetch job descriptions:', error)
@@ -56,7 +56,7 @@ const ResumeAnalyzer = () => {
       const formData = new FormData()
       formData.append('file', file)
 
-      await api.post('/api/resumes/upload', formData, {
+      await api.post('/resumes/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -76,7 +76,7 @@ const ResumeAnalyzer = () => {
     setError('')
 
     try {
-      await api.post('/api/job-descriptions/', {
+      await api.post('/job-descriptions/', {
         title: jdTitle,
         company: jdCompany,
         description: jdDescription,
@@ -104,7 +104,7 @@ const ResumeAnalyzer = () => {
     setAnalysisResult(null)
 
     try {
-      const response = await api.post('/api/analysis/analyze', {
+      const response = await api.post('/analysis/analyze', {
         resume_id: parseInt(selectedResume),
         job_description_id: parseInt(selectedJD),
       })
