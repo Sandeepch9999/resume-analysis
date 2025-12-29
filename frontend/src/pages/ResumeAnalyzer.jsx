@@ -22,7 +22,7 @@ const ResumeAnalyzer = () => {
 
   const fetchResumes = async () => {
     try {
-      const response = await api.get('/api/resumes/')
+      const response = await api.get('/resumes/')
       setResumes(response.data)
     } catch (error) {
       console.error('Failed to fetch resumes:', error)
