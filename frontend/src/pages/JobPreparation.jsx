@@ -14,7 +14,7 @@ const JobPreparation = () => {
 
   const fetchMatchResults = async () => {
     try {
-      const response = await api.get('/api/analysis/results')
+      const response = await api.get('/analysis/results')
       setMatchResults(response.data)
       if (response.data.length > 0 && !selectedResult) {
         setSelectedResult(response.data[0].id)
@@ -28,7 +28,7 @@ const JobPreparation = () => {
 
   const handleViewResult = async (resultId) => {
     try {
-      const response = await api.get(`/api/analysis/results/${resultId}`)
+      const response = await api.get(`/analysis/results/${resultId}`)
       setSelectedResult(resultId)
     } catch (error) {
       console.error('Failed to fetch result details:', error)
