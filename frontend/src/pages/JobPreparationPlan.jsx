@@ -22,7 +22,7 @@ const JobPreparationPlan = () => {
 
   const fetchJobDescriptions = async () => {
     try {
-      const response = await api.get('/api/job-descriptions/')
+      const response = await api.get('/job-descriptions/')
       setJobDescriptions(response.data)
     } catch (error) {
       console.error('Failed to fetch job descriptions:', error)
@@ -31,7 +31,7 @@ const JobPreparationPlan = () => {
 
   const fetchMatchResults = async () => {
     try {
-      const response = await api.get('/api/analysis/results')
+      const response = await api.get('/analysis/results')
       setMatchResults(response.data)
     } catch (error) {
       console.error('Failed to fetch match results:', error)
@@ -40,7 +40,7 @@ const JobPreparationPlan = () => {
 
   const fetchPlans = async () => {
     try {
-      const response = await api.get('/api/job-preparation-plan/')
+      const response = await api.get('/job-preparation-plan/')
       setPlans(response.data)
     } catch (error) {
       console.error('Failed to fetch plans:', error)
@@ -70,7 +70,7 @@ const JobPreparationPlan = () => {
         requestData.match_result_id = parseInt(selectedMatchResult)
       }
 
-      const response = await api.post('/api/job-preparation-plan/', requestData)
+      const response = await api.post('/job-preparation-plan/', requestData)
       setPlan(response.data)
       await fetchPlans()
     } catch (err) {
@@ -82,7 +82,7 @@ const JobPreparationPlan = () => {
 
   const handleViewPlan = async (planId) => {
     try {
-      const response = await api.get(`/api/job-preparation-plan/${planId}`)
+      const response = await api.get(`/job-preparation-plan/${planId}`)
       setPlan(response.data)
     } catch (error) {
       setError('Failed to load plan')
